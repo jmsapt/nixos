@@ -23,7 +23,7 @@
     extraConfig = {
       push.default = "upstream";
       core.editor = "vim";
-      init.defaultBranchName = "master";
+      init.defaultBranch = "master";
     };
   };
 
