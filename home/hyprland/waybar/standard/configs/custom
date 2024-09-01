@@ -1,0 +1,64 @@
+{
+    "include": "~/.config/waybar/modules",
+    "layer": "top",
+    "position": "top",
+    "exclusive": true,
+    "ipc": true,
+
+    "spacing": 8,
+    "margin-top": 1,
+    "margin-left": 4,
+    "margin-right": 4,
+    "fixed-spacing": false,
+
+    "modules-left": [
+        "idle_inhibitor",
+        "hyprland/workspaces#4",
+
+        "hyprland/window",
+    ],
+
+    "modules-center": [
+        "clock",
+        "custom/swaync",
+    ],
+
+    "modules-right": [
+        "custom/weather",
+
+        "cpu",
+        "memory",
+        "battery",
+        "backlight",
+
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "tray",
+
+        "custom/power"
+    ],
+
+    "hyprland/workspaces#4": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "一",
+            "2": "二",
+            "3": "三",
+            "4": "四",
+            "5": "五",
+            "6": "六",
+            "7": "七",
+            "8": "八",
+            "9": "九",
+            "10": "十",
+        },
+    },
+
+    "clock": {
+        "interval": 60,
+        "format": "\uf017 {:%H:%M}",
+        "format-alt": "\uf455 {:%H:%M %A %d %B, %Y}",
+        "max-length": 50,
+    }
+}
+

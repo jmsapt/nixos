@@ -1,0 +1,14 @@
+keys:
+  # Master backup key
+  - &users:
+    - &james age1q3chdlyr87dr07anfesyw96cdtw6dj7suh2syctzg7h27xfxdyusw6jykf
+  # Derived from host's ed25519 key (ssh-to-age)
+  - &hosts:
+    - &desktop age18g68g2rqg2chlw8qfhrjz620mygzffsezzygkp50j0wcs9xscvaqdr97xq
+
+creation_rules:
+  - path_regex: secrets.yaml$
+    key_groups:
+      - age:
+        - *james
+        - *desktop
