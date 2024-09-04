@@ -12,7 +12,15 @@
     };
 
     secrets = {
-      james-password = {}; 
+      # Non-runtime encrypted
+      "james/password" = {
+        neededForUsers = true;
+      };
+
+      # Runtime encrypted
+      "james/optusnet-password" = { owner = "james"; };
+      "james/gmail-password" = { owner = "james"; };
+      "james/unsw-password" = { owner = "james"; };
     };
   };
 }

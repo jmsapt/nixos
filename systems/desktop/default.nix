@@ -25,16 +25,17 @@
     ../../modules/cmd.nix
     ../../modules/compilers.nix
     ../../modules/zsh.nix
+    ../../modules/thunderbird.nix
   ];
   # Accounts
   users.mutableUsers = false;
-  sops.secrets.james-password.neededForUsers = true; 
+  sops.secrets."james/password".neededForUsers = true; 
   users.users.james = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     description = "James Appleton";
     shell = pkgs.zsh;
-    hashedPasswordFile = config.sops.secrets.james-password.path;
+    hashedPasswordFile = config.sops.secrets."james/password".path;
   };
 
   # set default editor to vim

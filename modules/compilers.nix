@@ -8,5 +8,11 @@
     # Compilers
     gcc
     clang
+
+    # langauge servers & formatters
+    clang-tools
+
+    # interpreters
+    # ...
   ];
 }
