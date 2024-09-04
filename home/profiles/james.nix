@@ -65,6 +65,7 @@ in
           # 3 => Normal Password
           # "mail.smtpserver.smtp_${id}.authMethod" = 3;
           # "mail.server.server_${id}.authMethod" = 3;
+          "mail.smtpserver.smtp_${id}.username" = "james.appleton";
         };
       };
 
@@ -82,36 +83,60 @@ in
 
       smtp.host = "smtp.optusnet.com.au";
       smtp.port = 25;
-      smtp.tls.enable = true;
+      smtp.tls.useStartTls = true;
     };
 
     # Just configure Gmail by hand :(
-    /* # Just remember to change the Auth method to oauth
+    # Just remember to change the Auth method to oauth
     Gmail = {
       thunderbird = {
         enable = true;
         settings = id: {
+
           # 10 => OAuth2
           # (Found by replicating auto-setup gmail account)
           "mail.smtpserver.smtp_${id}.authMethod" = 10;
-          "mail.smtpserver.stmp_${id}.description" = "Google Mail";
-          "mail.smtpserver.stmp_${id}.type" = "smtp";
+          "mail.smtpserver.smtp_${id}.description" = "Google Mail";
+          "mail.smtpserver.smtp_${id}.hostname" = "smtp.gmail.com";
           "mail.smtpserver.smtp_${id}.oauth2.issuer" = "accounts.google.com";
           "mail.smtpserver.smtp_${id}.oauth2.scope" = "https://mail.google.com/ https://www.googleapis.com/auth/carddav https://www.googleapis.com/auth/calendar";
+          "mail.smtpserver.smtp_${id}.type" = "smtp";
+          "mail.smtpserver.smtp_${id}.port" = 465;
+          # "mail.smtpserver.smtp_${id}.try_ssl" = 3;
+          # "mail.smtpserver.smtp_${id}.type" = "smtp";
+          "mail.smtpserver.smtp_${id}.username" = "james.appleton01@gmail.com";
 
+          # IMAP Server
           "mail.server.server_${id}.authMethod" = 10;
+          "mail.server.server_${id}.check_new_mail" = true;
+          "mail.server.server_${id}.clientid" = "9e836866-c14a-4ea2-93d3-68a6b372d706";
+          "mail.server.server_${id}.directory" = "/home/james/.thunderbird/james/ImapMail/imap.gmail-2.com";
+          "mail.server.server_${id}.directory-rel" = "[ProfD]ImapMail/imap.gmail-2.com";
           "mail.server.server_${id}.hostname" = "imap.gmail.com";
-          "mail.server.server_${id}.login_at_startup" = true;
           "mail.server.server_${id}.is_gmail" = true;
+          # "mail.server.server_${id}.lastFilterTime" = 28756845;
+          "mail.server.server_${id}.login_at_startup" = true;
+          "mail.server.server_${id}.max_cached_connections" = 5;
+          "mail.server.server_${id}.moveTargetMode" = 1;
+          # NAME
+          "mail.server.server_${id}.namespace.personal" = "";
+          # "mail.server.server_${id}.lastFilterTime" = 28756855;
           "mail.server.server_${id}.oauth2.issuer" = "accounts.google.com";
           "mail.server.server_${id}.oauth2.scope" = "https://mail.google.com/ https://www.googleapis.com/auth/carddav https://www.googleapis.com/auth/calendar";
+          "mail.server.server_${id}.port" = 993;
           "mail.server.server_${id}.serverIDResponse" = ''("name" "GImap" "vendor" "Google, Inc." "support-url" "https://support.google.com/mail" "version" "gmail.imap-server_20240815.06_p1" "remote-host" "58.110.9.101")'';
+
+          "mail.server.server_${id}.socketType" = 3;
+          "mail.server.server_${id}.type" = "imap";
+          "mail.server.server_${id}.userName" = "james.appleton01@gmail.com";
+
+
         };
       };
 
       # flavor = "gmail.com";
       realName = "James Appleton";
-      address = "james.appleton01@gmail.com.au";
+      address  = "james.appleton01@gmail.com.au";
       userName = "james.appleton01@gmail.com.au";
 
       smtp.port = 465;
@@ -122,7 +147,7 @@ in
       imap.host = "imap.gmail.com";
       imap.tls.enable = true;
     };
-    */
+    
   };
   
   #   # # TODO remove at end of 2024T3
