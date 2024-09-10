@@ -1,9 +1,21 @@
 # BetterFox configuration for firefox
 { config, lib, pkgs, ...}: 
 {
-   programs.firefox = {
-    enable = true;
-    package = pkgs.firefox;
+  systemd.user.sessionVariables = {
+    # firefox screencapture
+    MOZ_ENABLE_WAYLAND="1";
+    MOZ_USE_XINPUT2="1";
+
+    # SDL
+    SDL_VIDEODRIVER="wayland";
+
+    # QT
+    QT_QPA_PLATFORM="wayland";
+  };
+
+  programs.firefox = {
+    # enable = true;
+    # package = pkgs.firefox;
 
     # Better Fox Standard `user.js`
     # www.github.com/yokoffing/Betterfox/blob/main/user.js

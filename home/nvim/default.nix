@@ -8,7 +8,7 @@
     source = builtins.fetchGit {
       url = "https://github.com/jmsapt/nvim.git";
       ref = "master";
-      rev = "25bce95beabc80064e7ea79e42f7c8a739e85ed7";
+      rev = "edb4a68ee386e2f44acfa72c3fdac96d8ff25610";
     };
     recursive = true;
   };

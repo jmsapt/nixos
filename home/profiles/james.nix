@@ -22,6 +22,33 @@ in
     ../nvim
 
   ];
+  # 
+    home.sessionVariables = {
+      MOZ_ENABLE_WAYLAND = 1;
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
+      WLR_NO_HARDWARE_CURSORS = 1;
+      CLUTTER_BACKEND = "wayland";
+      XDG_SESSION_TYPE = "wayland";
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_SESSION_DESKTOP = "Hyprland";
+      WLR_BACKEND = "gl"; # No GPU :'(
+      QT_QPA_PLATFORM = "wayland";
+      GDK_BACKEND = "wayland";
+      NIXOS_OZONE_WL = 1;
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+    };
+
+  # SSH
+  programs.ssh = {
+    enable = true;
+    extraConfig = ''
+      Host cse
+        HostName login.cse.unsw.edu.au
+        User z5310803
+        # ForwardX11 yes
+        IdentityFile ~/.ssh/id_ed25519
+    '';
+  };
 
   # Git
   programs.git = {
@@ -37,6 +64,7 @@ in
   };
 
   # V-Card (for email)
+  # TODO fix and finish
   home.file.".vcard/james.vcf".text = ''
     BEGIN:VCARD
     VERSION:4.0
@@ -155,7 +183,7 @@ in
   #   #   address = "z5310803@ad.unsw.edu.au";
 
   #   # };
-  # };
+  # ;
 
 
   home.stateVersion = "24.11";

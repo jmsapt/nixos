@@ -3,6 +3,8 @@
 let
   host = osConfig.networking.hostName;
 in {
+  wayland.windowManager.hyprland.enable = true;
+  
   # Screenshot Config (Swappy)
   home.file.".config/swappy/config".text = ''
     [Default]

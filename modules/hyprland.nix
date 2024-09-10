@@ -1,8 +1,10 @@
-{inputs, nixpkgs, pkgs, ...}: {
+{inputs, nixpkgs, pkgs, config, ...}: {
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
   };
+  programs.xwayland.enable = true;
+
 
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -22,22 +24,22 @@
     wireplumber.enable = true;
     alsa.enable = true;
     pulse.enable = true;
-    jack.enable = true;
   };
 
   # X-portal and WL Roots (for stuff like screen sharing)
   xdg.portal = {
     enable = true;
+    xdgOpenUsePortal = true;
+
     extraPortals = with pkgs; [
+      # xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk
       xdg-desktop-portal-hyprland
     ];
-    xdgOpenUsePortal = true;
-
-    wlr = {
-      enable = true;
-      settings.screencast.chooser_type = "simple";
-    };
+    # config = {
+    #   common.default = ["gtk"];
+    #   hyprland.default = ["gtk" "hyprland"];
+    # };
   };
 
   # programs and services
@@ -91,6 +93,15 @@
     swappy
     slurp
     grim
+
+    # Obs
+    obs-studio
+  ];
+
+  # OBS virtual camera
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+  boot.kernelModules = [
+  "v4l2loopback"
   ];
 
 }

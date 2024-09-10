@@ -19,6 +19,9 @@
     # Bootloader EFI Shell
     ../../modules/edk2-shell
 
+    # Remove AOS After 2024T3
+    ../../modules/aos.nix
+
     # General Modules
     ../../modules/hyprland.nix
     ../../modules/sddm.nix
@@ -26,6 +29,7 @@
     ../../modules/compilers.nix
     ../../modules/zsh.nix
     ../../modules/thunderbird.nix
+    ../../modules/nvim.nix
   ];
   # Accounts
   users.mutableUsers = false;
@@ -107,19 +111,19 @@
   # Services
   services.openssh.enable = true;
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      hyprpaper = prev.hyprpaper.overrideAttrs rec {
-        version = "0.7.0";
-        src = prev.fetchFromGitHub {
-          owner = "hyprwm";
-          repo = "hyprpaper";
-          rev = "v${version}";
-          hash = "sha256-l13c8ALA7ZKDgluYA1C1OfkDGYD6e1/GR6LJnxCLRhA=";
-        };
-      };
-    })
-  ];
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     hyprpaper = prev.hyprpaper.overrideAttrs rec {
+  #       version = "0.7.0";
+  #       src = prev.fetchFromGitHub {
+  #         owner = "hyprwm";
+  #         repo = "hyprpaper";
+  #         rev = "v${version}";
+  #         hash = "sha256-l13c8ALA7ZKDgluYA1C1OfkDGYD6e1/GR6LJnxCLRhA=";
+  #       };
+  #     };
+  #   })
+  # ];
 
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.05"; # Did you read the comment?

@@ -9,8 +9,11 @@
     gcc
     clang
 
+    # Build systems
+    cmake
+    ninja
+
     # langauge servers & formatters
-    clang-tools
 
     # interpreters
     # ...
