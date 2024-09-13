@@ -1,6 +1,6 @@
 # Keep account specific stuff (like git and thunderbird) in this
 # profile specific config file
-{inputs, pkgs, ...}: 
+{inputs, lib, pkgs, ...}: 
 let
   # SOPS for secrets
   sops-home = import inputs.sops-nix.homeManagerModules.sops;
@@ -22,21 +22,29 @@ in
     ../nvim
 
   ];
-  # 
-    home.sessionVariables = {
-      MOZ_ENABLE_WAYLAND = 1;
-      QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
-      WLR_NO_HARDWARE_CURSORS = 1;
-      CLUTTER_BACKEND = "wayland";
-      XDG_SESSION_TYPE = "wayland";
-      XDG_CURRENT_DESKTOP = "Hyprland";
-      XDG_SESSION_DESKTOP = "Hyprland";
-      WLR_BACKEND = "gl"; # No GPU :'(
-      QT_QPA_PLATFORM = "wayland";
-      GDK_BACKEND = "wayland";
-      NIXOS_OZONE_WL = 1;
-      ELECTRON_OZONE_PLATFORM_HINT = "auto";
-    };
+  # TODO see if these matter at all
+  home.sessionVariables = {
+    MOZ_ENABLE_WAYLAND = 1;
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
+    WLR_NO_HARDWARE_CURSORS = 1;
+    CLUTTER_BACKEND = "wayland";
+    XDG_SESSION_TYPE = "wayland";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    WLR_BACKEND = "gl"; # No GPU :'(
+    QT_QPA_PLATFORM = "wayland";
+    GDK_BACKEND = "wayland";
+    NIXOS_OZONE_WL = 1;
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+  };
+
+  programs.zsh.shellAliases = {
+    "rebuild" = "sudo nixos-rebuild switch --flake ~/flake/#desktop";
+
+    # 9242
+    "9242" = "nix develop ~/.sel4-nix-shells/#sel4";
+    "9242-ninja" = "nix develop ~/.sel4-nix-shells/#sel4 --command ninja";
+  };
 
   # SSH
   programs.ssh = {
@@ -77,11 +85,8 @@ in
   # Thunderbird (email client)
   programs.thunderbird = {
     enable = true;
-
     profiles.james.isDefault = true;
-
   };
-
 
   # Email account
   accounts.email.accounts = {

@@ -19,13 +19,17 @@
 
     # Nixos Hardware Modules
     hardware.url = "github:nixos/nixos-hardware";
+
+    # Aos SeL4
+    sel4-nix.url = "github:sledgehammervampire/sel4-nix-shells";
+    sel4-nix.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, ... } @ inputs: 
+  outputs = { self, nixpkgs, sel4-nix, home-manager, sops-nix, ... } @ inputs: 
   let
     inherit (self) outputs;
   in {
-    # System Configurations
+    # System Configurations;
     nixosConfigurations = {
       # Desktop PC (RTX 3070)
       desktop = nixpkgs.lib.nixosSystem {

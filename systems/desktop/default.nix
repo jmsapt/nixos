@@ -19,9 +19,6 @@
     # Bootloader EFI Shell
     ../../modules/edk2-shell
 
-    # Remove AOS After 2024T3
-    ../../modules/aos.nix
-
     # General Modules
     ../../modules/hyprland.nix
     ../../modules/sddm.nix
@@ -31,6 +28,7 @@
     ../../modules/thunderbird.nix
     ../../modules/nvim.nix
   ];
+
   # Accounts
   users.mutableUsers = false;
   sops.secrets."james/password".neededForUsers = true; 
@@ -40,6 +38,32 @@
     description = "James Appleton";
     shell = pkgs.zsh;
     hashedPasswordFile = config.sops.secrets."james/password".path;
+  };
+
+  # Configure Bootloader
+  # Windows Entry
+  boot.loader.systemd-boot.extraEntries =
+  let
+    windows = { partition = "HD0b"; path = ''EFI\Microsoft\Boot\Bootmgfw.efi''; };
+    arch-linux = { partition = "HD2b"; path = ''EFI\BOOT\bootx64.efi''; };
+
+    efiShell = "/shellx64.efi";
+    args = lib.strings.concatStringsSep " " [
+      "-noconsolein" "-noconsoleout" 
+      #"-nointerrup" "-nomap" "-noversion" "-exit"
+    ];
+  in
+  { 
+    "windows.conf" = ''
+      title Windows
+      efi ${efiShell}
+      options ${args} ${windows.partition}:${windows.path}
+    '';
+    "arch-linux.conf" = ''
+      title   Arch Linux
+      efi     ${efiShell}
+      options ${args} ${arch-linux.partition}:${arch-linux.path}
+    '';
   };
 
   # set default editor to vim
@@ -78,13 +102,13 @@
     wget
     curl
     git
+    sshfs
     firefox
+    rclone
 
     zsh
     bash
-
     discord
-
     nix-prefetch-github # to get SHA256 for plugins
 
     # Keygen and Secrets
@@ -109,7 +133,10 @@
   # };
 
   # Services
-  services.openssh.enable = true;
+  services.openssh = {
+      enable = true;
+      allowSFTP = true;
+  };
 
   # nixpkgs.overlays = [
   #   (final: prev: {

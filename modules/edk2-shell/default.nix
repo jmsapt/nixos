@@ -1,8 +1,9 @@
 # Enables EFI shell
-{input, pkgs, stdenv, ...}:
+{config, input, pkgs, lib, ...}:
 let
-  efiShell = pkgs.stdenv.mkDerivation {
-    pname = "efi-shell";
+  # Define EFI Shell
+  efiShellx86_64 = pkgs.stdenv.mkDerivation {
+    pname = "efi-shell-x86_64";
     version = "0.1";
     src = ./shellx64.efi;
     unpackPhase = "true";
@@ -15,16 +16,6 @@ let
     '';
   };
 in {
-  # Create entry in Nix Registry
-  environment.systemPackages = with pkgs; [ efiShell ];
-
-  # Copy into /boot/
-  system.activationScripts.installEfiShell = {
-    text = ''
-      cp ${efiShell}/shellx64.efi /boot/
-    '';
-  };
-
-  # Create Bootloader Entry
-  # (Done by systemd?)
+  environment.systemPackages =  [ efiShellx86_64 ];
+  system.activationScripts.installEfiShell = { text = "cp ${efiShellx86_64}/shellx64.efi /boot/"; };
 }
